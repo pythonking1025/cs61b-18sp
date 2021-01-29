@@ -114,10 +114,6 @@ public class IntList {
         {
             return new IntList(B.first, catenate(A, B.rest));
         }
-        else if (A == null && B == null)
-        {
-            return null;
-        }
         return null;
     }
 
