@@ -11,8 +11,8 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
         size = 0;
         cap = 8;
-        head = 0;
-        tail = 0;
+        head = -1;
+        tail = -1;
     }
 
     private void resize(int capacity) {
@@ -28,12 +28,10 @@ public class ArrayDeque<T> {
         }
         if (head == 0) {
             head = cap - 1;
-        }
-        else if (head == -1) {
+        } else if (head == -1) {
             head = 0;
             tail = 0;
-        }
-        else {
+        } else {
             head = head - 1;
         }
         items[head] = item;
@@ -47,13 +45,10 @@ public class ArrayDeque<T> {
         }
         if (tail == cap - 1) {
             tail = 0;
-        }
-        else if (tail == -1)
-        {
+        } else if (tail == -1) {
             head = 0;
             tail = 0;
-        }
-        else {
+        } else {
             tail = tail + 1;
         }
         items[tail] = item;
@@ -69,7 +64,7 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = head; i != tail; i ++) {
+        for (int i = head; i != tail; i++) {
             if (i == cap) {
                 i = 0;
             }
@@ -85,8 +80,7 @@ public class ArrayDeque<T> {
         items[head] = null;
         if (head == cap - 1) {
             head = 0;
-        }
-        else {
+        } else {
             head = head + 1;
         }
         size -= 1;
@@ -105,8 +99,7 @@ public class ArrayDeque<T> {
         items[tail] = null;
         if (tail == 0) {
             tail = cap - 1;
-        }
-        else {
+        } else {
             tail = tail - 1;
         }
         size -= 1;
