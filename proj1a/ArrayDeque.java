@@ -11,8 +11,8 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
         size = 0;
         cap = 8;
-        head = -1;
-        tail = -1;
+        head = 0;
+        tail = 0;
     }
 
     private void resize(int capacity) {
@@ -29,6 +29,10 @@ public class ArrayDeque<T> {
         if (head == 0) {
             head = cap - 1;
         }
+        else if (head == -1) {
+            head = 0;
+            tail = 0;
+        }
         else {
             head = head - 1;
         }
@@ -42,6 +46,11 @@ public class ArrayDeque<T> {
             cap = cap * 2;
         }
         if (tail == cap - 1) {
+            tail = 0;
+        }
+        else if (tail == -1)
+        {
+            head = 0;
             tail = 0;
         }
         else {
