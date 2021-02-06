@@ -11,19 +11,20 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
         size = 0;
         cap = 8;
-        head = -1;
-        tail = -1;
+        head = 0;
+        tail = 0;
     }
 
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int j = 0;
-        for (int i = head; i != tail; i ++) {
+        for (int i = head; i != tail; i++) {
             a[j] = items[i];
-            j ++;
-            if (i == cap - 1) i = -1;
+            j++;
+            if (i == cap - 1) {
+            	i = -1;
+            }
         }
-        a[j] = items[tail];
         head = 0;
         tail = j;
         items = a;
@@ -36,9 +37,6 @@ public class ArrayDeque<T> {
         }
         if (head == 0) {
             head = cap - 1;
-        } else if (head == -1) {
-            head = 0;
-            tail = 0;
         } else {
             head = head - 1;
         }
@@ -51,15 +49,12 @@ public class ArrayDeque<T> {
             resize(size * 2);
             cap = cap * 2;
         }
+        items[tail] = item;
         if (tail == cap - 1) {
-            tail = 0;
-        } else if (tail == -1) {
-            head = 0;
             tail = 0;
         } else {
             tail = tail + 1;
         }
-        items[tail] = item;
         size += 1;
     }
 
@@ -73,10 +68,10 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         for (int i = head; i != tail; i++) {
-            if (i == cap) {
-                i = 0;
-            }
             System.out.print(items[i] + " ");
+            if (i == cap - 1) {
+                i = -1;
+            }
         }
     }
 
@@ -93,7 +88,7 @@ public class ArrayDeque<T> {
         }
         size -= 1;
         double ratio = (double) size / cap;
-        if (ratio < R) {
+        if (ratio < R && cap >= 16) {
             resize(cap / 2);
         }
         return item;
@@ -103,13 +98,13 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T item = items[tail];
-        items[tail] = null;
         if (tail == 0) {
             tail = cap - 1;
         } else {
             tail = tail - 1;
         }
+        T item = items[tail];
+        items[tail] = null;
         size -= 1;
         double ratio = (double) size / cap;
         if (ratio < R && cap >= 16) {
@@ -119,7 +114,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if (index > size) {
+        if (index >= size) {
             return null;
         }
         return items[(head + index) % cap];

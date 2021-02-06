@@ -54,7 +54,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (this.isEmpty()) return null;
+        if (this.isEmpty()) {
+            return null;
+        }
         Node first = sentinel.next;
         first.next.prev = sentinel;
         sentinel.next = first.next;
@@ -63,7 +65,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (this.isEmpty()) return null;
+        if (this.isEmpty()) {
+            return null;
+        }
         Node last = sentinel.prev;
         last.prev.next = sentinel;
         sentinel.prev = last.prev;
@@ -72,7 +76,9 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (index > size) return null;
+        if (index > size) {
+            return null;
+        }
         Node ptr = sentinel.next;
         while (index != 0) {
             ptr = ptr.next;
@@ -82,7 +88,9 @@ public class LinkedListDeque<T> {
     }
 
     private T getRHelper(Node sen, int index) {
-        if (index == 0) return sen.next.item;
+        if (index == 0) {
+            return sen.next.item
+        }
         return getRHelper(sen.next, index - 1);
     }
     public T getRecursive(int index) {
