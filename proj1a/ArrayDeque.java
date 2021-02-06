@@ -17,7 +17,15 @@ public class ArrayDeque<T> {
 
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a, 0, size);
+        int j = 0;
+        for (int i = head; i != tail; i ++) {
+            a[j] = items[i];
+            j ++;
+            if (i == cap - 1) i = -1;
+        }
+        a[j] = items[tail];
+        head = 0;
+        tail = j;
         items = a;
     }
 
@@ -104,7 +112,7 @@ public class ArrayDeque<T> {
         }
         size -= 1;
         double ratio = (double) size / cap;
-        if (ratio < R) {
+        if (ratio < R && cap >= 16) {
             resize(cap / 2);
         }
         return item;
@@ -114,7 +122,7 @@ public class ArrayDeque<T> {
         if (index > size) {
             return null;
         }
-        return items[(head + index - 1) % cap];
+        return items[(head + index) % cap];
     }
 }
 
