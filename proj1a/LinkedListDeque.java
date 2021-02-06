@@ -89,7 +89,7 @@ public class LinkedListDeque<T> {
 
     private T getRHelper(Node sen, int index) {
         if (index == 0) {
-            return sen.next.item
+            return sen.next.item;
         }
         return getRHelper(sen.next, index - 1);
     }
