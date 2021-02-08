@@ -20,7 +20,8 @@ public class ArrayDeque<T> {
         for (int i = 0, j = head; i < size; i++) {
             a[i] = items[j];
             j++;
-            if (j == cap) { j = 0;
+            if (j == cap) {
+                j = 0;
             }
         }
         head = 0;
