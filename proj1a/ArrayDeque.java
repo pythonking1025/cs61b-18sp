@@ -20,19 +20,18 @@ public class ArrayDeque<T> {
         for (int i = 0, j = head; i < size; i++) {
             a[i] = items[j];
             j++;
-            if (j == cap) {
-            	j = 0;
+            if (j == cap) { j = 0;
             }
         }
         head = 0;
         tail = size;
         items = a;
+        cap = capacity;
     }
 
     public void addFirst(T item) {
         if (size == cap) {
             resize(size * 2);
-            cap = cap * 2;
         }
         if (head == 0) {
             head = cap - 1;
@@ -46,7 +45,6 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         if (size == cap) {
             resize(size * 2);
-            cap = cap * 2;
         }
         items[tail] = item;
         if (tail == cap - 1) {
