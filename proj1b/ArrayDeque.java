@@ -1,4 +1,4 @@
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T> {
     private static final double R = 0.25;
 
     private T[] items;

@@ -19,17 +19,24 @@ public class TestPalindrome {
     @Test
     public void testisPalindrome() {
         assertTrue(palindrome.isPalindrome("aaabaaaaabaaa"));
+        assertFalse(palindrome.isPalindrome("asd"));
+        assertTrue(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome("&"));
     }
 
     @Test
     public void testPalindrome() {
         OffByOne offByOne = new OffByOne();
         assertTrue(palindrome.isPalindrome("flake", offByOne));
+        assertTrue(palindrome.isPalindrome("", offByOne));
+        assertTrue(palindrome.isPalindrome("&", offByOne));
     }
 
     @Test
     public void testPalindromeByN() {
         OffByN offByN = new OffByN(10);
         assertTrue(palindrome.isPalindrome("auk", offByN));
+        assertTrue(palindrome.isPalindrome("", offByN));
+        assertTrue(palindrome.isPalindrome("&", offByN));
     }
 }
