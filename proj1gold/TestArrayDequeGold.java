@@ -4,6 +4,7 @@ import org.junit.Test;
 public class TestArrayDequeGold {
     @Test
     public void Test1() {
+        String message = "";
         StudentArrayDeque<Integer> st = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ans = new ArrayDequeSolution<>();
 
@@ -12,11 +13,13 @@ public class TestArrayDequeGold {
             if (numberBetweenZeroAndOne < 0.5) {
                 st.addLast(i);
                 ans.addLast(i);
-                assertEquals("addLast(" + i +")", st.get(st.size() - 1), ans.get(ans.size() - 1));
+                assertEquals(st.get(st.size() - 1), ans.get(ans.size() - 1));
+                message += "\naddLast(" + i +")";
             } else {
                 st.addFirst(i);
                 ans.addFirst(i);
-                assertEquals("addFirst(" + i +")", st.get(0), ans.get(0));
+                assertEquals(st.get(0), ans.get(0));
+                message += "\naddFirst(" + i +")";
             }
         }
 
@@ -27,18 +30,17 @@ public class TestArrayDequeGold {
             Integer y;
 
             if (numberBetweenZeroAndOne < 0.5) {
-                if (!ans.isEmpty()) {
-                    x = st.removeFirst();
-                    y = ans.removeFirst();
-                    assertEquals("removeFirst()", x, y);
-                }
+                x = st.removeFirst();
+                y = ans.removeFirst();
+                message += "\nremoveFirst()";
+
             } else {
-                if (!ans.isEmpty()) {
-                    x = st.removeLast();
-                    y = ans.removeLast();
-                    assertEquals("removeLast()", x, y);
-                }
+                x = st.removeLast();
+                y = ans.removeLast();
+                message += "\nremoveLast()";
             }
+
+            assertEquals(message, x, y);
         }
     }
 }
