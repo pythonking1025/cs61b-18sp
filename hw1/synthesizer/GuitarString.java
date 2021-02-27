@@ -1,6 +1,9 @@
 // TODO: Make sure to make this class a part of the synthesizer package
 //package <package name>;
 package synthesizer;
+
+import synthesizer.BoundedQueue;
+
 //Make sure this class is public
 public class GuitarString {
     /** Constants. Do not change. In case you're curious, the keyword final means
@@ -20,7 +23,7 @@ public class GuitarString {
         //       Your buffer should be initially filled with zeros.
         int capacity = (int) Math.round(SR / frequency);
         buffer = new ArrayRingBuffer<Double>(capacity);
-        for (int i = 0; i < capacity; i ++ ) {
+        for (int i = 0; i < buffer.capacity(); i ++ ) {
             buffer.enqueue(0.0);
         }
     }
@@ -33,7 +36,7 @@ public class GuitarString {
         //       double r = Math.random() - 0.5;
         //
         //       Make sure that your random numbers are different from each other.
-        for (double i : buffer) {
+        for (int i = 0; i < buffer.capacity(); i ++ ) {
             double r = Math.random() - 0.5;
             buffer.dequeue();
             buffer.enqueue(r);
