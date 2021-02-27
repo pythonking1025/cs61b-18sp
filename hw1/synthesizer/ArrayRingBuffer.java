@@ -29,12 +29,11 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         this.capacity = capacity;
     }
 
-    private int Oneplus(int idx) {
-        idx += 1;
-        if (idx == capacity) {
-            idx = 0;
+    private int Oneplus(int index) {
+        if (index == capacity - 1) {
+            return 0;
         }
-        return idx;
+        return index + 1;
     }
 
     /**
