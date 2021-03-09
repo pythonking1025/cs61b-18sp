@@ -31,16 +31,16 @@ public class PercolationStats {
         return StdStats.mean(res);
     }
 
-    public double stddv() {
+    public double stddev() {
         return StdStats.stddev(res);
     }
 
     public double confidenceLow() {
-        return this.mean() - 1.96 * (this.stddv() / Math.sqrt(size));
+        return this.mean() - 1.96 * (this.stddev() / Math.sqrt(size));
     }
 
     public double confidenceHigh() {
-        return this.mean() + 1.96 * (this.stddv() / Math.sqrt(size));
+        return this.mean() + 1.96 * (this.stddev() / Math.sqrt(size));
     }
 
     public static void main(String[] args) {
