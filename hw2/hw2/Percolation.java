@@ -91,26 +91,9 @@ public class Percolation {
     }
 
     public boolean percolates() {
+        if (N == 1 && !isOpen(0, 0)) {
+            return false;
+        }
         return map2.connected(0, N * N + 1);
     }
-
-    public static void main(String[] args) {
-        Percolation p = new Percolation(5);
-        p.open(0, 0);
-        System.out.println(p.numberOfOpenSites());
-        p.open(1, 0);
-        p.open(2, 0);
-        System.out.println(p.numberOfOpenSites());
-        p.open(3, 0);
-        p.open(3, 0);
-        p.open(3, 0);
-        System.out.println(p.numberOfOpenSites());
-        p.open(4, 0);
-        p.open(3, 1);
-        System.out.println(p.isFull(1, 3));
-        System.out.println(p.percolates());
-        System.out.println(p.numberOfOpenSites());
-
-    }
-
 }
