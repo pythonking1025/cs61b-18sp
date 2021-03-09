@@ -96,4 +96,16 @@ public class Percolation {
         }
         return map2.connected(0, N * N + 1);
     }
+
+    public static void main(String[] args) {
+        Percolation p = new Percolation(1);
+
+        System.out.println(p.numberOfOpenSites());
+
+        System.out.println(p.isFull(0, 0));
+        System.out.println(p.percolates());
+        System.out.println(p.numberOfOpenSites());
+
+    }
+
 }
