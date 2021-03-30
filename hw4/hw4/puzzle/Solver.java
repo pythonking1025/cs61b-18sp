@@ -40,6 +40,7 @@ public class Solver {
     }
 
     private Map<WorldState, Integer> edCaches = new HashMap<>();
+    private List<WorldState> solution = new ArrayList<>();
     private Stack<WorldState> path = new Stack<>();
 
     public Solver(WorldState initial) {
@@ -63,13 +64,17 @@ public class Solver {
         for (SearchNode Node = now; Node != null; Node = Node.prev) {
             path.push(Node.state);
         }
+        while (!path.isEmpty()) {
+            solution.add(path.pop());
+        }
+        return;
     }
 
     public int moves() {
-        return path.size() - 1;
+        return solution.size() - 1;
     }
 
     public Iterable<WorldState> solution() {
-        return path;
+        return solution;
     }
 }
