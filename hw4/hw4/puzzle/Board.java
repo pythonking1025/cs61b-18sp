@@ -68,14 +68,16 @@ public class Board implements WorldState {
 
     public int hamming() {
         int res = 0;
+        int exp = 1;
         for (int i = 0; i < N; i ++ ) {
             for (int j = 0; j < N; j ++ ) {
-                if (tiles[i][j] == BLANK) {
-                    continue;
+                if (exp == N * N) {
+                    break;
                 }
-                if (tiles[i][j] != xyTo1D(i, j)) {
+                if (tiles[i][j] != exp) {
                     res ++;
                 }
+                exp ++;
             }
         }
         return res;
@@ -88,15 +90,10 @@ public class Board implements WorldState {
                 if (tiles[i][j] == BLANK) {
                     continue;
                 }
-                if (tiles[i][j] != xyTo1D(i, j)) {
                     res += getXYDiff(tiles[i][j], i, j);
-                }
             }
         }
         return res;
-    }
-    private int xyTo1D(int x, int y) {
-        return x * N + y;
     }
 
     private int getXYDiff(int a, int i, int j) {
@@ -132,6 +129,11 @@ public class Board implements WorldState {
             }
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     /** Returns the string representation of the board. 

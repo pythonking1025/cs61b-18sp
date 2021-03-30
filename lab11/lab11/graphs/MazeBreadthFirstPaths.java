@@ -1,5 +1,6 @@
 package lab11.graphs;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 

@@ -1,7 +1,8 @@
 package lab11.graphs;
 
+import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 /**
  *  @author Josh Hug
@@ -10,9 +11,25 @@ public class MazeAStarPath extends MazeExplorer {
     private int s;
     private int t;
     private int x2, y2;
-    private boolean targetFound = false;
     private Maze maze;
-    private Queue<Integer> fringe;
+    private PriorityQueue<Node> fringe;
+
+    private class Node {
+        private int v;
+        private int priority;
+
+        public Node(int v) {
+            this.v = v;
+            this.priority = distTo[v] + h(v);
+        }
+    }
+
+    private class NodeCmp implements Comparator<Node> {
+        @Override
+        public int compare(Node o1, Node o2) {
+            return o1.priority - o2.priority;
+        }
+    }
 
     public MazeAStarPath(Maze m, int sourceX, int sourceY, int targetX, int targetY) {
         super(m);
@@ -24,8 +41,8 @@ public class MazeAStarPath extends MazeExplorer {
         distTo[s] = 0;
         edgeTo[s] = s;
         marked[s] = true;
-        fringe = new LinkedList<>();
-        fringe.add(s);
+        fringe = new PriorityQueue<>(new NodeCmp());
+        fringe.add(new Node(s));
     }
 
     /** Estimate of the distance from v to the target. */
@@ -45,23 +62,21 @@ public class MazeAStarPath extends MazeExplorer {
     private void astar(int s) {
         // TODO
         while (!fringe.isEmpty()) {
-            int now = fringe.poll();
-            int minDis = 0x7f7f7f7f;
-            int minEdge = -1;
+            Node curNode = fringe.poll();
+            int now = curNode.v;
             for (int e : maze.adj(now)) {
-                if (!marked[e] && (minEdge == -1 || minDis >= h(e))) {
-                    minEdge = e;
+                if (!marked[e]) {
+                    marked[e] = true;
+                    distTo[e] = distTo[now] + 1;
+                    edgeTo[e] = now;
+                    announce();
+                    if (e == t) {
+                        return;
+                    } else {
+                        Node tmp = new Node(e);
+                        fringe.add(tmp);
+                    }
                 }
-            }
-            marked[minEdge] = true;
-            announce();
-            distTo[minEdge] = distTo[now] + 1;
-            edgeTo[minEdge] = now;
-            announce();
-            if (minEdge == t) {
-                return;
-            } else {
-                fringe.add(minEdge);
             }
         }
     }
