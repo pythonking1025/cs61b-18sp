@@ -35,7 +35,13 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item>> ans = new Queue<>();
+        for (Item x : items) {
+            Queue<Item> y = new Queue<>();
+            y.enqueue(x);
+            ans.enqueue(y);
+        }
+        return ans;
     }
 
     /**
@@ -54,13 +60,46 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
         // Your code here!
-        return null;
+        int size = q1.size() + q2.size();
+        Queue<Item> ans = new Queue<>();
+        while (size > 0) {
+            ans.enqueue(getMin(q1, q2));
+            size --;
+        }
+        return ans;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        if (items.size() <= 1) {
+            return items;
+        }
+        Queue<Item> left = new Queue<>();
+        Queue<Item> right = new Queue<>();
+        int size = items.size();
+        int mid = size / 2;
+        for (int i = 0; i < size; i ++ )  {
+            if (i < mid) {
+                left.enqueue(items.dequeue());
+            } else {
+                right.enqueue(items.dequeue());
+            }
+        }
+        Queue<Item> leftSorted = mergeSort(left);
+        Queue<Item> rightSorted = mergeSort(right);
+        Queue<Item> ans = mergeSortedQueues(leftSorted, rightSorted);
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        Queue<String> students = new Queue<>();
+        students.enqueue("Alice");
+        students.enqueue("Vanessa");
+        students.enqueue("Ethan");
+        students.enqueue("David");
+        Queue<String> students2 = MergeSort.mergeSort(students);
+        System.out.println(students2);
     }
 }
