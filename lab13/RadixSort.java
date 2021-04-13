@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.SplittableRandom;
+
 /**
  * Class for doing Radix sort
  *
@@ -17,7 +20,18 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
-        return null;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < asciis.length; i ++ )
+        {
+            if (asciis[i].length() > max) {
+                max = asciis[i].length();
+            }
+        }
+        String[] res = Arrays.copyOf(asciis, asciis.length);
+        for (int i = max - 1; i >= 0; i --) {
+            sortHelperLSD(res, i);
+        }
+        return res;
     }
 
     /**
@@ -28,7 +42,36 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        return;
+        int N = 256;
+        int[] counts = new int[N + 1];
+        for (String x : asciis) {
+            int pos = get_pos(x, index);
+            counts[pos] ++;
+        }
+        int pos = 0;
+        int[] start = new int[N + 1];
+        for (int i = 0; i < N + 1; i ++) {
+            start[i] = pos;
+            pos += counts[i];
+        }
+        String[] sorted = new String[asciis.length];
+        for (int i = 0; i < asciis.length; i ++) {
+            String x = asciis[i];
+            pos = get_pos(x, index);
+            sorted[start[pos]] = x;
+            start[pos] ++;
+        }
+        for (int i = 0; i < asciis.length; i ++) {
+            asciis[i] = sorted[i];
+        }
+    }
+
+    private static int get_pos(String x, int index) {
+        if (index >= x.length() || index < 0) {
+            return 0;
+        } else {
+            return x.charAt(index) + 1;
+        }
     }
 
     /**
@@ -44,5 +87,19 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] asciis = new String[] {"123", "2", "455621", "235", "33", "43526"};
+        String[] res = RadixSort.sort(asciis);
+        for (String x : res) {
+            System.out.println(x);
+        }
+
+        String[] asciis1 = new String[] {"     ", " ", "  ", "   "};
+        String[] res1 = RadixSort.sort(asciis1);
+        for (String x : res1) {
+            System.out.println('|' + x + '|');
+        }
     }
 }
