@@ -89,7 +89,7 @@ public class Plip extends Creature {
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         List<Direction> empties = getNeighborsOfType(neighbors, "empty");
         List<Direction> clorus = getNeighborsOfType(neighbors, "clorus");
-        
+
         if (empties.size() == 0) {
             return new Action(Action.ActionType.STAY);
         } else if (energy > 1) {
