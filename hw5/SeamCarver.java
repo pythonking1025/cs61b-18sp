@@ -9,7 +9,7 @@ public class SeamCarver {
     private int height;
 
     public SeamCarver(Picture picture) {
-        pic = picture;
+        pic = new Picture(picture);
         height = picture.height();
         width = picture.width();
     }
